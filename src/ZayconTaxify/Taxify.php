@@ -21,13 +21,14 @@ class Taxify {
 	private $url;
 	private $api_key;
 	private $debug_mode = FALSE;
+	private $curl_opts;
 
 	/**
 	 * @param null $api_key
 	 * @param null $environment
 	 * @param bool|FALSE $debug_mode
 	 */
-	function __construct( $api_key=NULL, $environment=NULL, $debug_mode=FALSE ) {
+	function __construct( $api_key=NULL, $environment=NULL, $debug_mode=FALSE, $curl_opts=array() ) {
 
 		if ( $api_key !== NULL )
 		{
@@ -37,6 +38,7 @@ class Taxify {
 		$this->setDebugMode( $debug_mode );
 		$this->environment = ( $environment == self::ENV_PROD ) ? self::ENV_PROD : self::ENV_DEV;
 		$this->url = ( $this->isProd() ) ? self::PROD_URL : self::DEV_URL;
+		$this->curl_opts = $curl_opts;
 	}
 
 	/**
@@ -102,6 +104,14 @@ class Taxify {
 	{
 		return $this->url;
 	}
+
+    /**
+     * @return array
+     */
+	public function getCurlOpts()
+    {
+        return $this->curl_opts;
+    }
 
 	/**
 	 * @param $string

@@ -63,6 +63,10 @@ class Communicator {
 			)
 		));
 
+		if (count($this->taxify->getCurlOpts()) > 0) {
+		    curl_setopt_array( $ch, $this->taxify->getCurlOpts() );
+        }
+
 		$result = curl_exec( $ch );
 		$http_code = curl_getinfo( $ch, CURLINFO_HTTP_CODE );
 		curl_close( $ch );
